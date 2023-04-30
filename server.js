@@ -25,6 +25,16 @@ wss.on('connection', function connection(ws) {
 
 app.use(express.static('public'))
 app.use(express.json())
+app.enable('trust proxy')
+
+app.use(function(request, response, next) {
+
+    if (process.env.NODE_ENV != 'development' && !request.secure) {
+       return response.redirect("https://" + request.headers.host + request.url);
+    }
+
+    next();
+})
 
 app.use((req, res, next) => {
     console.log('Middleware executed');
