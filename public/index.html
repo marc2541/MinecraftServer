@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+    <h1>Test</h1>
+    <p>Test</p>
+    <form>
+        <input type="text" id="input"/>
+        <button id="get">G</button>
+    </form>
+    <script>
+        const GetBtn = document.getElementById('get');
+        //const PostBtn = document.getElementById('post');
+        const Input = document.getElementById('input');
+
+        const BaseUrl = 'http://localhost:3000/';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            GetBtn.addEventListener('click', getinfo);
+            //PostBtn.addEventListener('click', postinfo);
+        });
+
+        async function getinfo(e){
+            e.preventDefault();
+            const res = await fetch(BaseUrl + 'info/test?key=hello', 
+            {
+                method: 'GET',
+            })
+            console.log(res);
+            const data = await res.json()
+            input.value = data.info
+
+        }
+        /*async function postinfo(e){
+            e.preventDefault();
+            if (!input.value == '') { return }
+            const res = await fetch(BaseUrl, 
+                {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": 'application/json'
+                    },
+                    body: JSON.stringify({
+                        parcel: input.value
+                    })
+                })
+
+        }*/
+    </script>
+    </body>
+</html>
